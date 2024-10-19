@@ -27,6 +27,16 @@ public class ListingController {
     public  ResponseEntity<ReqRes> getListingById(@RequestParam Long id){
         return ResponseEntity.ok(service.getListingById(id));
     }
+//    ReqRes getListingByParking(Boolean hasParking);
+//    ReqRes getListingByBedrooms(Long bedrooms);
+//    ReqRes getListingByBathrooms(Long bathrooms);
+//    ReqRes getListingByType(String type);
+//    ReqRes getListingByFurnished(Boolean isFurnished);
+//    ReqRes getListingByPrice(Double price);
+//    ReqRes updateListing(ReqRes listingInfo);
+//    ReqRes createListing(ReqRes listingInfo);
+//    ReqRes deleteListing(Long id);
+//    ReqRes deleteAllListings();
 
 
 
