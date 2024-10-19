@@ -226,7 +226,6 @@ public class ListingServiceImpl implements ListingService{
         return response;
 
     }
-
     @Override
     public ReqRes deleteListing(Long id) {
         ReqRes response =new ReqRes();
