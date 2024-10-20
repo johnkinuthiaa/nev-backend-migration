@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Service
@@ -143,7 +144,7 @@ public class ListingServiceImpl implements ListingService{
             response.setMessage("no listings were found");
         }else{
             response.setStatusCode(200);
-            response.setMessage("listings wth furnished "+furnished+"bathrooms found.");
+            response.setMessage("listings wth furnished "+isFurnished+" found");
             response.setListings(furnished);
         }
         return response;
@@ -202,8 +203,8 @@ public class ListingServiceImpl implements ListingService{
     public ReqRes createListing(ReqRes listingInfo) {
         ReqRes response =new ReqRes();
         try {
-            Listing newListing =new Listing();
-            if (repository.findById(listingInfo.getId()).isEmpty()){
+            if (repository.getListingByName(listingInfo.getName()).isEmpty()){
+                Listing newListing =new Listing();
                 newListing.setName(listingInfo.getName());
                 newListing.setDescription(listingInfo.getDescription());
                 newListing.setAddress(listingInfo.getAddress());

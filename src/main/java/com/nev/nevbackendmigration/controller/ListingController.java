@@ -47,7 +47,7 @@ public class ListingController {
         return ResponseEntity.ok(service.getListingByFurnished(isFurnished));
     }
     @GetMapping("get/price")
-    public ResponseEntity<ReqRes> getListingByPrice(Double price){
+    public ResponseEntity<ReqRes> getListingByPrice(@RequestParam Double price){
         return ResponseEntity.ok(service.getListingByPrice(price));
     }
     @PutMapping("update/listing")
