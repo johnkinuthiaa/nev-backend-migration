@@ -6,6 +6,7 @@ import com.nev.nevbackendmigration.repository.ListingRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,6 +15,7 @@ public class ListingServiceImpl implements ListingService{
     public ListingServiceImpl(ListingRepository repository){
         this.repository=repository;
     }
+
     @Override
     public ReqRes getAllListings(){
         ReqRes response =new ReqRes();
@@ -182,6 +184,7 @@ public class ListingServiceImpl implements ListingService{
                 newListing.setType(listingInfo.getType());
                 newListing.setHasOffer(listingInfo.getHasOffer());
                 newListing.setImgUrl(listingInfo.getImgUrl());
+                newListing.setCreatedAt(LocalDateTime.now());
                 repository.save(newListing);
                 response.setStatusCode(201);
                 response.setMessage("new listing created");

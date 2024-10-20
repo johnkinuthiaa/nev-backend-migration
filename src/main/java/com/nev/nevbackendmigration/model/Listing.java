@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import javax.annotation.processing.Generated;
+import java.time.LocalDateTime;
 
 @Entity
 public class Listing {
@@ -24,6 +25,7 @@ public class Listing {
     private String type;
     private Boolean hasOffer;
     private String imgUrl;
+    private LocalDateTime createdAt;
 
     public Listing(){}
     public Listing(String name,
@@ -131,5 +133,12 @@ public class Listing {
     }
     public String getImgUrl(){
         return imgUrl;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt){
+        this.createdAt =createdAt;
+    }
+    public LocalDateTime getCreatedAt(){
+        return createdAt;
     }
 }
