@@ -3,6 +3,7 @@ package com.nev.nevbackendmigration.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,8 +17,8 @@ public class User {
     private String userEmail;
     @Column(nullable = false)
     private String password;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Listing> listings;
+    @OneToMany(mappedBy = "user")
+    private List<Listing> listings;
 
     public User(){}
     public User(String username,String userEmail,String password){
@@ -46,11 +47,11 @@ public class User {
     public String getPassword(){
         return password;
     }
-    public Set<Listing> getListings() {
+    public List<Listing> getListings() {
         return listings ;
     }
-    public void setListings(Set<Listing> listings) {
+    public void setListings(List<Listing> listings) {
         this.listings = listings;
     }
-
 }
+
