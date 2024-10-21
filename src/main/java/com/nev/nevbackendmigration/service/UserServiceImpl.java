@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService{
             user.setUsername(registrationDetails.getUsername());
             user.setUserEmail(registrationDetails.getUserEmail());
             user.setPassword(registrationDetails.getPassword());
+            user.setListings(registrationDetails.getListings());
             repository.save(user);
             response.setMessage("user created successfully");
             response.setStatusCode(200);

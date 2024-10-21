@@ -2,10 +2,13 @@ package com.nev.nevbackendmigration.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
-import java.util.Set;
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class User {
     @Id
@@ -17,41 +20,44 @@ public class User {
     private String userEmail;
     @Column(nullable = false)
     private String password;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Listing> listings;
 
-    public User(){}
-    public User(String username,String userEmail,String password){
-        this.username=username;
-        this.userEmail=userEmail;
-        this.password=password;
-    }
-    public Long getId(){
-        return id;
-    }
-    public void setUsername(String username){
-        this.username =username;
-    }
-    public String getUsername(){
-        return username;
-    }
-    public void setUserEmail(String userEmail){
-        this.userEmail=userEmail;
-    }
-    public String getUserEmail(){
-        return userEmail;
-    }
-    public void setPassword(String password){
-        this.password=password;
-    }
-    public String getPassword(){
-        return password;
-    }
-    public List<Listing> getListings() {
-        return listings ;
-    }
-    public void setListings(List<Listing> listings) {
-        this.listings = listings;
-    }
+//    public User(){}
+//    public User(String username,String userEmail,String password){
+//        this.username=username;
+//        this.userEmail=userEmail;
+//        this.password=password;
+//    }
 }
-
+//    public Long getId(){
+//        return id;
+//    }
+//    public void setUsername(String username){
+//        this.username =username;
+//    }
+//    public String getUsername(){
+//        return username;
+//    }
+//    public void setUserEmail(String userEmail){
+//        this.userEmail=userEmail;
+//    }
+//    public String getUserEmail(){
+//        return userEmail;
+//    }
+//    public void setPassword(String password){
+//        this.password=password;
+//    }
+//    public String getPassword(){
+//        return password;
+//    }
+//
+//    public List<Listing> getListings() {
+//        return listings ;
+//    }
+//    public void setListings(List<Listing> listings) {
+//        this.listings = listings;
+//    }
+//}
+//

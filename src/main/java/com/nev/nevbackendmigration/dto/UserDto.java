@@ -2,6 +2,7 @@ package com.nev.nevbackendmigration.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.nev.nevbackendmigration.model.Listing;
 import com.nev.nevbackendmigration.model.User;
 import lombok.Data;
 
@@ -20,4 +21,5 @@ public class UserDto {
     private String password;
     private List<User> users;
     private User user;
+    private List<Listing> listings;
 }

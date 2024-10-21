@@ -25,7 +25,8 @@ public class ListingServiceImpl implements ListingService{
     @Override
     public ReqRes getAllListings(){
         ReqRes response =new ReqRes();
-        if (!repository.findAll().isEmpty()){
+        if (repository.findAll( ) !=null){
+
             response.setMessage("all listings");
             response.setStatusCode(200);
             response.setListings(repository.findAll());
@@ -231,7 +232,7 @@ public class ListingServiceImpl implements ListingService{
                 newListing.setUser(userTemp);
                 newListing.setCreatedAt(LocalDateTime.now());
                 repository.save(newListing);
-//                userRepository.save(userTemp);
+
 
                 response.setStatusCode(201);
                 response.setMessage("new listing created");
