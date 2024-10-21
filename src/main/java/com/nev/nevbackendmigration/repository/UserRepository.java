@@ -1,4 +1,8 @@
 package com.nev.nevbackendmigration.repository;
 
-public interface UserRepository {
+import com.nev.nevbackendmigration.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User,Long> {
+    User findUserByUserEmail(String email);
 }

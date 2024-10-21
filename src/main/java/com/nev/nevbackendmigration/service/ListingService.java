@@ -12,8 +12,8 @@ public interface ListingService {
     ReqRes getListingByType(String type);
     ReqRes getListingByFurnished(Boolean isFurnished);
     ReqRes getListingByPrice(Double price);
-    ReqRes updateListing(ReqRes listingInfo);
-    ReqRes createListing(ReqRes listingInfo);
+    ReqRes updateListing(ReqRes listingInfo,Long id);
+    ReqRes createListing(ReqRes listingInfo,Long id);
     ReqRes deleteListing(Long id);
-    ReqRes deleteAllListings();
+    ReqRes deleteAllListings(Long id);
 }

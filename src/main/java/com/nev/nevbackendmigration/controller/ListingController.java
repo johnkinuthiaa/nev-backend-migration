@@ -51,20 +51,20 @@ public class ListingController {
         return ResponseEntity.ok(service.getListingByPrice(price));
     }
     @PutMapping("update/listing")
-    public ResponseEntity<ReqRes> updateListing(@RequestBody ReqRes listingInfo){
-        return ResponseEntity.ok(service.updateListing(listingInfo));
+    public ResponseEntity<ReqRes> updateListing(@RequestBody ReqRes listingInfo,Long id){
+        return ResponseEntity.ok(service.updateListing(listingInfo,id));
     }
     @PostMapping("create/new-listing")
-    public ResponseEntity<ReqRes> createListing(@RequestBody ReqRes listingInfo){
-        return new ResponseEntity<>(service.createListing(listingInfo), HttpStatus.CREATED);
+    public ResponseEntity<ReqRes> createListing(@RequestBody ReqRes listingInfo,Long id){
+        return new ResponseEntity<>(service.createListing(listingInfo,id), HttpStatus.CREATED);
     }
     @DeleteMapping("/delete/id")
-    public ResponseEntity<ReqRes> deleteListing(Long id){
+    public ResponseEntity<ReqRes> deleteListing(@RequestParam Long id){
         return new ResponseEntity<>(service.deleteListing(id),HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/delete/all")
-    public ResponseEntity<ReqRes> deleteAllListings(){
-        return new ResponseEntity<>(service.deleteAllListings(),HttpStatus.ACCEPTED);
+    public ResponseEntity<ReqRes> deleteAllListings(@RequestParam Long id){
+        return new ResponseEntity<>(service.deleteAllListings(id),HttpStatus.ACCEPTED);
     }
 
 }

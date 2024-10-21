@@ -2,19 +2,24 @@ package com.nev.nevbackendmigration.service;
 
 import com.nev.nevbackendmigration.dto.ReqRes;
 import com.nev.nevbackendmigration.model.Listing;
+import com.nev.nevbackendmigration.model.User;
 import com.nev.nevbackendmigration.repository.ListingRepository;
+import com.nev.nevbackendmigration.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ListingServiceImpl implements ListingService{
     private final ListingRepository repository;
-    public ListingServiceImpl(ListingRepository repository){
+    private final UserRepository userRepository;
+    public ListingServiceImpl(ListingRepository repository,UserRepository userRepository){
         this.repository=repository;
+        this.userRepository=userRepository;
     }
 
     @Override
@@ -53,6 +58,7 @@ public class ListingServiceImpl implements ListingService{
     public ReqRes getListingById(Long id){
         ReqRes response = new ReqRes();
         if(repository.findById(id).isPresent()){
+
             response.setStatusCode(200);
             response.setMessage("listing wth id "+id+" found.");
             response.setListing(repository.findById(id).orElse(null));
@@ -168,11 +174,13 @@ public class ListingServiceImpl implements ListingService{
     }
 
     @Override
-    public ReqRes updateListing(ReqRes listingInfo) {
+    public ReqRes updateListing(ReqRes listingInfo,Long id) {
         ReqRes response =new ReqRes();
+
         try {
+            User userTemp = userRepository.findById(id).orElse(null);
             Listing newListing =new Listing();
-            if (repository.findById(listingInfo.getId()).isPresent()){
+            if (repository.findById(listingInfo.getId()).isPresent() && userTemp !=null){
                 newListing.setName(listingInfo.getName());
                 newListing.setDescription(listingInfo.getDescription());
                 newListing.setAddress(listingInfo.getAddress());
@@ -186,9 +194,11 @@ public class ListingServiceImpl implements ListingService{
                 newListing.setHasOffer(listingInfo.getHasOffer());
                 newListing.setImgUrl(listingInfo.getImgUrl());
                 newListing.setCreatedAt(LocalDateTime.now());
+                newListing.setUser(userTemp);
                 repository.save(newListing);
+                userRepository.save(userTemp);
                 response.setStatusCode(201);
-                response.setMessage("new listing created");
+                response.setMessage("listing updated");
                 response.setListing(newListing);
             }
 
@@ -200,10 +210,11 @@ public class ListingServiceImpl implements ListingService{
     }
 
     @Override
-    public ReqRes createListing(ReqRes listingInfo) {
+    public ReqRes createListing(ReqRes listingInfo,Long id) {
         ReqRes response =new ReqRes();
         try {
-            if (repository.getListingByName(listingInfo.getName()).isEmpty()){
+            User userTemp = userRepository.findById(id).orElse(null);
+            if (repository.getListingByName(listingInfo.getName()).isEmpty() && userTemp !=null){
                 Listing newListing =new Listing();
                 newListing.setName(listingInfo.getName());
                 newListing.setDescription(listingInfo.getDescription());
@@ -217,7 +228,11 @@ public class ListingServiceImpl implements ListingService{
                 newListing.setType(listingInfo.getType());
                 newListing.setHasOffer(listingInfo.getHasOffer());
                 newListing.setImgUrl(listingInfo.getImgUrl());
+                newListing.setUser(userTemp);
+                newListing.setCreatedAt(LocalDateTime.now());
                 repository.save(newListing);
+                userRepository.save(userTemp);
+
                 response.setStatusCode(201);
                 response.setMessage("new listing created");
                 response.setListing(newListing);
@@ -235,7 +250,7 @@ public class ListingServiceImpl implements ListingService{
         ReqRes response =new ReqRes();
         if(repository.findById(id).isPresent()){
             repository.deleteById(id);
-            response.setMessage("user  with id "+id+" successfully deleted");
+            response.setMessage("listing  with id "+id+" successfully deleted");
             response.setStatusCode(200);
 
         }
@@ -243,11 +258,18 @@ public class ListingServiceImpl implements ListingService{
     }
 
     @Override
-    public ReqRes deleteAllListings() {
-        repository.deleteAll();
+    public ReqRes deleteAllListings(Long id) {
         ReqRes response =new ReqRes();
-        response.setStatusCode(200);
-        response.setMessage("all listings deleted");
+        User userTemp = userRepository.findById(id).orElse(null);
+        if(userTemp !=null){
+            repository.deleteAll();
+            response.setStatusCode(200);
+            response.setMessage("all listings deleted");
+
+        }else{
+            response.setMessage("user not found");
+        }
+
         return response;
     }
 }

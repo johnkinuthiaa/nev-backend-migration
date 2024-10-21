@@ -1,9 +1,7 @@
 package com.nev.nevbackendmigration.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
 import javax.annotation.processing.Generated;
 import java.time.LocalDateTime;
@@ -26,6 +24,9 @@ public class Listing {
     private Boolean hasOffer;
     private String imgUrl;
     private LocalDateTime createdAt;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private User user;
 
     public Listing(){}
     public Listing(String name,
@@ -140,5 +141,11 @@ public class Listing {
     }
     public LocalDateTime getCreatedAt(){
         return createdAt;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 }
