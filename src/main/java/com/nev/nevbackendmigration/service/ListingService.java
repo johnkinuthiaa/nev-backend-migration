@@ -1,6 +1,7 @@
 package com.nev.nevbackendmigration.service;
 
 import com.nev.nevbackendmigration.dto.ReqRes;
+import com.nev.nevbackendmigration.model.Listing;
 
 public interface ListingService {
     ReqRes getAllListings();
@@ -14,6 +15,8 @@ public interface ListingService {
     ReqRes getListingByPrice(Double price);
     ReqRes updateListing(ReqRes listingInfo,Long id);
     ReqRes createListing(ReqRes listingInfo,Long id);
+//    Listing createListing(Listing listingInfo, Long id);
+
     ReqRes deleteListing(Long id);
     ReqRes deleteAllListings(Long id);
 }

@@ -1,6 +1,7 @@
 package com.nev.nevbackendmigration.controller;
 
 import com.nev.nevbackendmigration.dto.ReqRes;
+import com.nev.nevbackendmigration.model.Listing;
 import com.nev.nevbackendmigration.service.ListingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,8 @@ public class ListingController {
     public ResponseEntity<ReqRes> createListing(@RequestBody ReqRes listingInfo,Long id){
         return new ResponseEntity<>(service.createListing(listingInfo,id), HttpStatus.CREATED);
     }
+
+
     @DeleteMapping("/delete/id")
     public ResponseEntity<ReqRes> deleteListing(@RequestParam Long id){
         return new ResponseEntity<>(service.deleteListing(id),HttpStatus.ACCEPTED);

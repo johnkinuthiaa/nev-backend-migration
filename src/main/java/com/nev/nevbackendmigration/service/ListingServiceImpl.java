@@ -231,7 +231,7 @@ public class ListingServiceImpl implements ListingService{
                 newListing.setUser(userTemp);
                 newListing.setCreatedAt(LocalDateTime.now());
                 repository.save(newListing);
-                userRepository.save(userTemp);
+//                userRepository.save(userTemp);
 
                 response.setStatusCode(201);
                 response.setMessage("new listing created");

@@ -17,7 +17,7 @@ public class User {
     private String userEmail;
     @Column(nullable = false)
     private String password;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Listing> listings;
 
     public User(){}
