@@ -25,7 +25,7 @@ public class ListingServiceImpl implements ListingService{
     @Override
     public ReqRes getAllListings(){
         ReqRes response =new ReqRes();
-        if (repository.findAll( ) !=null){
+        if (repository.findAll() !=null){
 
             response.setMessage("all listings");
             response.setStatusCode(200);
@@ -182,6 +182,7 @@ public class ListingServiceImpl implements ListingService{
             User userTemp = userRepository.findById(id).orElse(null);
             Listing newListing =new Listing();
             if (repository.findById(listingInfo.getId()).isPresent() && userTemp !=null){
+                newListing.setId(listingInfo.getId());
                 newListing.setName(listingInfo.getName());
                 newListing.setDescription(listingInfo.getDescription());
                 newListing.setAddress(listingInfo.getAddress());

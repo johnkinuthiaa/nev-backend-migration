@@ -51,8 +51,8 @@ public class ListingController {
     public ResponseEntity<ReqRes> getListingByPrice(@RequestParam Double price){
         return ResponseEntity.ok(service.getListingByPrice(price));
     }
-    @PutMapping("update/listing")
-    public ResponseEntity<ReqRes> updateListing(@RequestBody ReqRes listingInfo,Long id){
+    @PutMapping("/update/listing")
+    public ResponseEntity<ReqRes> updateListing(@RequestBody ReqRes listingInfo,@RequestParam Long id){
         return ResponseEntity.ok(service.updateListing(listingInfo,id));
     }
     @PostMapping("create/new-listing")
