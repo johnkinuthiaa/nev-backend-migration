@@ -20,9 +20,11 @@ public class User {
     private String userEmail;
     @Column(nullable = false)
     private String password;
+    private String role;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Listing> listings;
+
 
 //    public User(){}
 //    public User(String username,String userEmail,String password){

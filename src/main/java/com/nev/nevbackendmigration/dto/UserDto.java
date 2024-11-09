@@ -20,6 +20,7 @@ public class UserDto {
     private String username;
     private String userEmail;
     private String password;
+    private String jwtToken;
     private List<User> users;
     private User user;
     private List<Listing> listings;

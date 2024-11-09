@@ -12,7 +12,7 @@ public class UserController {
     public UserController(UserService service){
         this.service=service;
     }
-    @PostMapping("/saveUsers")
+    @PostMapping("/register/Users")
     public ResponseEntity<UserDto> registerUser(@RequestBody UserDto registrationDetails){
         return ResponseEntity.ok(service.registerUser(registrationDetails));
     }
@@ -24,8 +24,12 @@ public class UserController {
     public ResponseEntity<UserDto> deleteUserById(@RequestParam Long id){
         return ResponseEntity.ok(service.deleteUserById(id));
     }
-    @DeleteMapping("/delete/all")
+    @DeleteMapping("/admin/delete/all")
     public ResponseEntity<UserDto> deleteAllUsers(){
         return ResponseEntity.ok(service.deleteAllUsers());
+    }
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> login(@RequestBody UserDto loginDetails){
+        return ResponseEntity.ok(service.login(loginDetails));
     }
 }

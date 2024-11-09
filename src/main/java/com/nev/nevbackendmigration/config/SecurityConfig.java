@@ -30,7 +30,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(requests ->requests.anyRequest().permitAll())
+                .authorizeHttpRequests(requests ->requests
+                        .requestMatchers("/users/admin/").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/users/**").hasAnyAuthority("USER")
+                        .requestMatchers("users/login","users/register/").permitAll()
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2Login(Customizer.withDefaults())
