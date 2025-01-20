@@ -29,9 +29,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests ->requests
-                        .requestMatchers("/api/v1/users/**").hasAnyAuthority("USER")
-                        .requestMatchers("/api/v1/users/login","/api/v1/users/register").permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //                .oauth2Login(Customizer.withDefaults())
@@ -51,3 +49,7 @@ public class SecurityConfig {
     }
 
 }
+
+//requestMatchers("/api/v1/users/**").hasAnyAuthority("USER")
+//                        .requestMatchers("/api/v1/users/login","/api/v1/users/register").permitAll()
+//                        .anyRequest().permitAll())

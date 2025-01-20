@@ -90,10 +90,10 @@ public class UserServiceImpl implements UserService {
             response.setStatusCode(404);
             return response;
         }
-        existingUser.get().setRole(details.getRole().isEmpty()||details.getRole().isBlank()?existingUser.get().getRole():details.getRole());
-        existingUser.get().setUserEmail(details.getUserEmail().isEmpty()||details.getUserEmail().isBlank()?existingUser.get().getUserEmail():details.getUserEmail());
-        existingUser.get().setPassword(details.getPassword().isEmpty() ||details.getPassword().isBlank()?existingUser.get().getPassword():details.getPassword());
-        existingUser.get().setUsername(details.getUsername().isEmpty()||details.getUsername().isBlank()?existingUser.get().getUsername():details.getUsername());
+        existingUser.get().setRole(details.getRole() ==null||details.getRole().isBlank()?existingUser.get().getRole():details.getRole());
+        existingUser.get().setUserEmail(details.getUserEmail() ==null||details.getUserEmail().isBlank()?existingUser.get().getUserEmail():details.getUserEmail());
+        existingUser.get().setPassword(details.getPassword() ==null ||details.getPassword().isBlank()?existingUser.get().getPassword():details.getPassword());
+        existingUser.get().setUsername(details.getUsername() ==null||details.getUsername().isBlank()?existingUser.get().getUsername():details.getUsername());
         existingUser.get().setListings(existingUser.get().getListings());
         repository.save(existingUser.get());
         response.setMessage("User updated successfully");

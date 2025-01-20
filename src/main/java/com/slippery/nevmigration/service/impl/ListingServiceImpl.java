@@ -191,19 +191,19 @@ public class ListingServiceImpl implements ListingService {
             return response;
         }
         existingListing.get()
-                .setAddress(listingInfo.getAddress().isEmpty()||listingInfo.getAddress().isBlank()?existingListing.get().getAddress(): listingInfo.getAddress());
+                .setAddress(listingInfo.getAddress() ==null||listingInfo.getAddress().isBlank()?existingListing.get().getAddress(): listingInfo.getAddress());
         existingListing.get().setBathrooms(listingInfo.getBathrooms() ==null?existingListing.get().getBathrooms():listingInfo.getBathrooms());
         existingListing.get().setBedrooms(listingInfo.getBedrooms() ==null?existingListing.get().getBedrooms():listingInfo.getBedrooms());
-        existingListing.get().setDescription(listingInfo.getDescription().isEmpty() ||listingInfo.getDescription().isBlank()?
+        existingListing.get().setDescription(listingInfo.getDescription() ==null ||listingInfo.getDescription().isBlank()?
                 existingListing.get().getDescription(): listingInfo.getDescription());
         existingListing.get().setDiscount(listingInfo.getDiscount() ==null?existingListing.get().getDiscount(): listingInfo.getDiscount());
         existingListing.get().setHasOffer(listingInfo.getHasOffer() ==null?existingListing.get().getHasOffer():listingInfo.getHasOffer());
         existingListing.get().setHasParking(listingInfo.getHasParking() ==null? existingListing.get().getHasParking() : listingInfo.getHasParking());
         existingListing.get().setIsFurnished(listingInfo.getIsFurnished() ==null?existingListing.get().getIsFurnished():listingInfo.getIsFurnished());
-        existingListing.get().setLocation(listingInfo.getLocation().isEmpty()||listingInfo.getLocation().isBlank()?existingListing.get().getLocation(): listingInfo.getLocation());
-        existingListing.get().setName(listingInfo.getName().isEmpty()||listingInfo.getName().isBlank()?existingListing.get().getName(): listingInfo.getName());
-        existingListing.get().setRegularPrice(listingInfo.getRegularPrice().toString().isEmpty() ||listingInfo.getRegularPrice().toString().isBlank()?existingListing.get().getRegularPrice(): listingInfo.getRegularPrice());
-        existingListing.get().setType(listingInfo.getType().isEmpty()||listingInfo.getType().isBlank()?existingListing.get().getType(): listingInfo.getType());
+        existingListing.get().setLocation(listingInfo.getLocation() ==null||listingInfo.getLocation().isBlank()?existingListing.get().getLocation(): listingInfo.getLocation());
+        existingListing.get().setName(listingInfo.getName()==null||listingInfo.getName().isBlank()?existingListing.get().getName(): listingInfo.getName());
+        existingListing.get().setRegularPrice(listingInfo.getRegularPrice() ==null ||listingInfo.getRegularPrice().toString().isBlank()?existingListing.get().getRegularPrice(): listingInfo.getRegularPrice());
+        existingListing.get().setType(listingInfo.getType() ==null||listingInfo.getType().isBlank()?existingListing.get().getType(): listingInfo.getType());
 
         repository.save(existingListing.get());
         response.setMessage("Listing updated");
