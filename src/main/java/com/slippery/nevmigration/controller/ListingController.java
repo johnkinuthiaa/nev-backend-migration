@@ -5,6 +5,7 @@ import com.slippery.nevmigration.model.Listing;
 import com.slippery.nevmigration.service.ListingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -51,22 +52,24 @@ public class ListingController {
     public ResponseEntity<ReqRes> getListingByPrice(@RequestParam Double price){
         return ResponseEntity.ok(service.getListingByPrice(price));
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/update/listing")
     public ResponseEntity<ReqRes> updateListing(@RequestBody Listing listingInfo,
                                                 @RequestParam Long userId,
                                                 @RequestParam Long listingId){
         return ResponseEntity.ok(service.updateListing(listingInfo,userId,listingId));
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/create/new-listing")
-    public ResponseEntity<ReqRes> createListing(@RequestBody ReqRes listingInfo,Long id){
+    public ResponseEntity<ReqRes> createListing(@RequestBody ReqRes listingInfo,@RequestParam Long id){
         return new ResponseEntity<>(service.createListing(listingInfo,id), HttpStatus.CREATED);
     }
-
-
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/admin/delete/id")
-    public ResponseEntity<ReqRes> deleteListing(@RequestParam Long id){
-        return new ResponseEntity<>(service.deleteListing(id),HttpStatus.ACCEPTED);
+    public ResponseEntity<ReqRes> deleteListing(@RequestParam Long id,@RequestParam Long userId){
+        return new ResponseEntity<>(service.deleteListing(id,userId),HttpStatus.ACCEPTED);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/admin/delete/all")
     public ResponseEntity<ReqRes> deleteAllListings(@RequestParam Long id){
         return new ResponseEntity<>(service.deleteAllListings(id),HttpStatus.ACCEPTED);

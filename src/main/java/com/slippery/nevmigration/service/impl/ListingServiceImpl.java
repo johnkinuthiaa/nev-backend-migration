@@ -190,6 +190,11 @@ public class ListingServiceImpl implements ListingService {
             response.setStatusCode(404);
             return response;
         }
+        if(!existingListing.get().getUser().getId().equals(userId)){
+            response.setMessage("User doesnt have a listing with id "+listingId);
+            response.setStatusCode(400);
+            return response;
+        }
         existingListing.get()
                 .setAddress(listingInfo.getAddress() ==null||listingInfo.getAddress().isBlank()?existingListing.get().getAddress(): listingInfo.getAddress());
         existingListing.get().setBathrooms(listingInfo.getBathrooms() ==null?existingListing.get().getBathrooms():listingInfo.getBathrooms());
@@ -265,14 +270,28 @@ public class ListingServiceImpl implements ListingService {
 
     }
     @Override
-    public ReqRes deleteListing(Long id) {
+    public ReqRes deleteListing(Long id,Long userId) {
         ReqRes response =new ReqRes();
-        if(repository.findById(id).isPresent()){
-            repository.deleteById(id);
-            response.setMessage("listing  with id "+id+" successfully deleted");
-            response.setStatusCode(200);
-
+        Optional<Listing> listing =repository.findById(id);
+        Optional<User> user =userRepository.findById(userId);
+        if(listing.isEmpty()){
+            response.setMessage("Listing is not available");
+            response.setStatusCode(404);
+            return response;
         }
+        if(user.isEmpty()){
+            response.setMessage("Listing is not available");
+            response.setStatusCode(404);
+            return response;
+        }
+        if(!listing.get().getUser().getId().equals(userId)){
+            response.setMessage("Listing does not belong to user");
+            response.setStatusCode(401);
+            return response;
+        }
+        repository.deleteById(id);
+        response.setMessage("Listing deleted");
+        response.setStatusCode(200);
         return response;
     }
 

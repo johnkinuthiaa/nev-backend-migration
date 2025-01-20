@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 public class Listing {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
@@ -35,8 +35,7 @@ public class Listing {
     private Boolean hasOffer;
     private String imgUrl;
     private LocalDateTime createdAt;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_Id")
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JsonBackReference
     private User user;
 

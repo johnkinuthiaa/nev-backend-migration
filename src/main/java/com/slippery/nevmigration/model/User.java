@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Setter
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String username;
@@ -21,10 +22,11 @@ public class User {
     private String userEmail;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String role;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Listing> listings;
+    @Column(nullable = false)
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Listing> listings =new ArrayList<>();
 
 }
 

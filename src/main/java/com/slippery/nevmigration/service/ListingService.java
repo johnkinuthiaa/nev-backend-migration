@@ -27,7 +27,7 @@ public interface ListingService {
     ReqRes createListing(ReqRes listingInfo, Long id);
 //    Listing createListing(Listing listingInfo, Long id);
 
-    ReqRes deleteListing(Long id);
+    ReqRes deleteListing(Long id,Long userId);
 
     ReqRes deleteAllListings(Long id);
 }
