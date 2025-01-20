@@ -1,6 +1,8 @@
 package com.slippery.nevmigration.service.impl;
 
 import com.slippery.nevmigration.dto.ReqRes;
+import com.slippery.nevmigration.model.Listing;
+import com.slippery.nevmigration.model.User;
 import com.slippery.nevmigration.repository.ListingRepository;
 import com.slippery.nevmigration.repository.UserRepository;
 import com.slippery.nevmigration.service.ListingService;
@@ -173,7 +175,7 @@ public class ListingServiceImpl implements ListingService {
     }
 
     @Override
-    public ReqRes updateListing(Listing listingInfo,Long userId,Long listingId) {
+    public ReqRes updateListing(Listing listingInfo, Long userId, Long listingId) {
         ReqRes response =new ReqRes();
         Optional<User> userTemp = userRepository.findById(userId);
         Optional<Listing> existingListing =repository.findById(listingId);
