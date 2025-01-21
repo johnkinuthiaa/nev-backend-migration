@@ -1,6 +1,7 @@
 package com.slippery.nevmigration.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,8 +26,11 @@ public class User {
     @Column(nullable = false)
     private String role;
     @Column(nullable = false)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user",orphanRemoval = true)
     private List<Listing> listings =new ArrayList<>();
+    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @JsonBackReference
+    private List<Reviews> reviewsList =new ArrayList<>();
 
 }
 

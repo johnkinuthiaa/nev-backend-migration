@@ -34,4 +34,8 @@ public class UserController {
     public ResponseEntity<UserDto> login(@RequestBody User loginDetails){
         return ResponseEntity.ok(service.login(loginDetails));
     }
+    @GetMapping("/get/{userId}/user")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId){
+        return ResponseEntity.ok(service.getUserById(userId));
+    }
 }

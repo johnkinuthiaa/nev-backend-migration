@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
         user.setListings(new ArrayList<>());
         user.setUserEmail(registrationDetails.getUserEmail());
         user.setRole(registrationDetails.getRole());
+        user.setReviewsList(null);
         repository.save(user);
         response.setMessage("User registration completed");
         response.setStatusCode(200);
@@ -78,6 +79,20 @@ public class UserServiceImpl implements UserService {
             response.setMessage("User not authenticated");
             response.setStatusCode(401);
         }
+        return response;
+    }
+
+    @Override
+    public UserDto getUserById(Long userId) {
+        UserDto response =new UserDto();
+        Optional<User> existingUser =repository.findById(userId);
+        if(existingUser.isEmpty()){
+            response.setMessage("User doesnt exist");
+            response.setStatusCode(200);
+            return response;
+        }
+        response.setUser(existingUser.get());
+        response.setStatusCode(200);
         return response;
     }
 

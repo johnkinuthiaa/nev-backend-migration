@@ -11,6 +11,8 @@ import lombok.Setter;
 
 import javax.annotation.processing.Generated;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -35,8 +37,11 @@ public class Listing {
     private Boolean hasOffer;
     private String imgUrl;
     private LocalDateTime createdAt;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JsonBackReference
     private User user;
+    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
+    @JsonBackReference
+    private List<Reviews> reviewsList =new ArrayList<>();
 
 }
