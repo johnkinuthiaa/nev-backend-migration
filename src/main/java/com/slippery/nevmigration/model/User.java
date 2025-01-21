@@ -28,8 +28,7 @@ public class User {
     @Column(nullable = false)
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user",orphanRemoval = true)
     private List<Listing> listings =new ArrayList<>();
-    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
-    @JsonBackReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Reviews> reviewsList =new ArrayList<>();
 
 }

@@ -41,7 +41,6 @@ public class Listing {
     @JsonBackReference
     private User user;
     @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
-    @JsonBackReference
     private List<Reviews> reviewsList =new ArrayList<>();
 
 }

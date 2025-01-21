@@ -47,8 +47,8 @@ public class ReviewServiceImpl implements ReviewService {
 //        save review
         Reviews reviews =new Reviews();
         reviews.setReview(review.getReview());
-        reviews.setListingId(listingId);
-        reviews.setUserId(userId);
+        reviews.setUser(existingUser.get());
+        reviews.setListing(existingListing.get());
         reviewRepository.save(reviews);
 //        update listing
         var reviewList =existingListing.get().getReviewsList();
@@ -112,7 +112,7 @@ public class ReviewServiceImpl implements ReviewService {
             response.setStatusCode(404);
             return response;
         }
-        if(!existingReview.get().getListingId().equals(listingId) || !existingReview.get().getUserId().equals(userId)){
+        if(!existingReview.get().getUser().getId().equals(userId) || !existingReview.get().getListing().getId().equals(listingId)){
             response.setMessage("review does not belong to the user");
             response.setStatusCode(401);
             return response;

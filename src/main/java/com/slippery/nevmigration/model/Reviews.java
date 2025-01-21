@@ -21,7 +21,15 @@ public class Reviews {
     private Long id;
     @Lob
     private String review;
-    private Long userId;
-    private Long listingId;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "listing_id")
+
+    private Listing listing;
     private LocalDateTime createdOn =LocalDateTime.now();
 }
