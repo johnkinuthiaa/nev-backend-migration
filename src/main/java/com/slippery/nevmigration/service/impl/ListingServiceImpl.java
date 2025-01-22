@@ -249,6 +249,8 @@ public class ListingServiceImpl implements ListingService {
             newListing.setHasOffer(listingInfo.getHasOffer());
             newListing.setImgUrl(listingInfo.getImgUrl());
             newListing.setReviewsList(null);
+            newListing.setSwimmingPool(listingInfo.getSwimmingPool());
+            newListing.setGym(listingInfo.getGym());
             newListing.setUser(userTemp.get());
             newListing.setCreatedAt(LocalDateTime.now());
             repository.save(newListing);

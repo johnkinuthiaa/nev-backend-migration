@@ -30,6 +30,8 @@ public class ReqRes {
     private String type;
     private Boolean hasOffer;
     private String imgUrl;
+    private String swimmingPool;
+    private String gym;
     private List<Listing> listings;
     private Listing listing;
 }

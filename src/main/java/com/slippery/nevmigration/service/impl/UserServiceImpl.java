@@ -42,6 +42,9 @@ public class UserServiceImpl implements UserService {
             response.setStatusCode(400);
             return response;
         }
+        if(registrationDetails.getUserEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")){
+            System.out.println("email matches regex");
+        }
 
         User user =new User();
         user.setPassword(passwordEncoder.encode(registrationDetails.getPassword()));

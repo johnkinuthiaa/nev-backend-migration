@@ -127,6 +127,8 @@ public class ReviewServiceImpl implements ReviewService {
         userReviews.remove(existingReview.get());
         existingUser.get().setReviewsList(userReviews);
         userRepository.save(existingUser.get());
+        response.setMessage("review deleted");
+        response.setStatusCode(200);
         return response;
     }
 }
