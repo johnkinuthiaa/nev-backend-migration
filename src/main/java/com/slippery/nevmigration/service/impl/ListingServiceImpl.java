@@ -41,9 +41,8 @@ public class ListingServiceImpl implements ListingService {
     @Override
     public ReqRes getListingByLocation(String location) {
         ReqRes response = new ReqRes();
-        var listingsInLocation = repository.findAll().stream()
-                .filter(listing -> listing.getLocation().toLowerCase().contains(location.toLowerCase()))
-                .collect(Collectors.toList());
+        var listingsInLocation =repository.findAllByLocationContainingIgnoreCase(location);
+
         if (listingsInLocation.isEmpty()) {
             response.setStatusCode(404);
             response.setMessage("no listings were found in that location");
@@ -64,7 +63,7 @@ public class ListingServiceImpl implements ListingService {
             response.setMessage("listing wth id "+id+" found.");
             response.setListing(repository.findById(id).orElse(null));
         }else{
-            response.setStatusCode(500);
+            response.setStatusCode(404);
             response.setMessage("no listings were found with an id of"+id);
         }
         return response;
@@ -249,6 +248,7 @@ public class ListingServiceImpl implements ListingService {
             newListing.setHasOffer(listingInfo.getHasOffer());
             newListing.setImgUrl(listingInfo.getImgUrl());
             newListing.setReviewsList(null);
+            newListing.setLocation(listingInfo.getLocation());
             newListing.setSwimmingPool(listingInfo.getSwimmingPool());
             newListing.setGym(listingInfo.getGym());
             newListing.setUser(userTemp.get());

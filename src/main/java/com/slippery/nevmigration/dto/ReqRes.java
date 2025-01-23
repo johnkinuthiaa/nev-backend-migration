@@ -32,6 +32,7 @@ public class ReqRes {
     private String imgUrl;
     private String swimmingPool;
     private String gym;
+    private String location;
     private List<Listing> listings;
     private Listing listing;
 }

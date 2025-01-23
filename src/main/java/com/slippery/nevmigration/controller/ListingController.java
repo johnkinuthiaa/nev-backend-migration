@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/listings")
+@CrossOrigin(value = "*")
 public class ListingController {
     private final ListingService service;
     public ListingController(ListingService service){
