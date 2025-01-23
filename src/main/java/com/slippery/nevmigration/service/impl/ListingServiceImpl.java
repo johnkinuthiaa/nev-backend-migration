@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -254,7 +254,6 @@ public class ListingServiceImpl implements ListingService {
             newListing.setHasOffer(listingInfo.getHasOffer());
             newListing.setImgUrl(listingInfo.getImgUrl());
             newListing.setReviewsList(null);
-            newListing.setImages(new ArrayList<>());
             newListing.setLocation(listingInfo.getLocation());
             newListing.setSwimmingPool(listingInfo.getSwimmingPool());
             newListing.setGym(listingInfo.getGym());
@@ -280,30 +279,7 @@ public class ListingServiceImpl implements ListingService {
 
     }
 
-    @Override
-    public ReqRes uploadImages(List<MultipartFile> images,Long itemId) throws IOException {
-        ReqRes response =new ReqRes();
-        Optional<Listing> existingListing =repository.findById(itemId);
-        if(existingListing.isEmpty()){
-            response.setMessage("Listing not found");
-            response.setStatusCode(404);
-            return response;
-        }
-        try{
-            List<byte[]> existingImages = existingListing.get().getImages();
-            for(MultipartFile file:images){
 
-                existingImages.add(file.getBytes());
-            }
-            existingListing.get().setImages(existingImages);
-            repository.save(existingListing.get());
-            response.setMessage("Images added");
-        } catch (IOException e) {
-            throw new IOException(e);
-        }
-
-        return response;
-    }
 
     @Override
     public ReqRes deleteListing(Long id,Long userId) {

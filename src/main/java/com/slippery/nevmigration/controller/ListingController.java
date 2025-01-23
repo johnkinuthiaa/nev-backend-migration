@@ -80,9 +80,6 @@ public class ListingController {
     public ResponseEntity<ReqRes> deleteAllListings(@RequestParam Long id){
         return new ResponseEntity<>(service.deleteAllListings(id),HttpStatus.ACCEPTED);
     }
-    @PutMapping(value = "/upload/images/{itemId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ReqRes> uploadImages(@RequestPart("file") List<MultipartFile> file, @PathVariable Long itemId) throws IOException {
-        return ResponseEntity.ok(service.uploadImages(file, itemId));
-    }
+
 
 }

@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.processing.Generated;
 import java.time.LocalDateTime;
@@ -36,8 +37,7 @@ public class Listing {
     private String type;
     private Boolean hasOffer;
     private String imgUrl;
-    @Lob
-    private List<byte[]> images =new ArrayList<>();
+
     private String swimmingPool;
     private String gym;
     private LocalDateTime createdAt;
