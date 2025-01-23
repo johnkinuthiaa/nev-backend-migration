@@ -6,14 +6,19 @@ import com.slippery.nevmigration.model.User;
 import com.slippery.nevmigration.repository.ListingRepository;
 import com.slippery.nevmigration.repository.UserRepository;
 import com.slippery.nevmigration.service.ListingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ListingServiceImpl implements ListingService {
     private final ListingRepository repository;
@@ -218,7 +223,7 @@ public class ListingServiceImpl implements ListingService {
     }
 
     @Override
-    public ReqRes createListing(ReqRes listingInfo,Long id) {
+    public ReqRes createListing(ReqRes listingInfo, Long id) {
         ReqRes response =new ReqRes();
         try {
             Optional<User> userTemp = userRepository.findById(id);
@@ -235,6 +240,7 @@ public class ListingServiceImpl implements ListingService {
                 return response;
             }
             Listing newListing =new Listing();
+
             newListing.setName(listingInfo.getName());
             newListing.setDescription(listingInfo.getDescription());
             newListing.setAddress(listingInfo.getAddress());
@@ -248,6 +254,7 @@ public class ListingServiceImpl implements ListingService {
             newListing.setHasOffer(listingInfo.getHasOffer());
             newListing.setImgUrl(listingInfo.getImgUrl());
             newListing.setReviewsList(null);
+            newListing.setImages(new ArrayList<>());
             newListing.setLocation(listingInfo.getLocation());
             newListing.setSwimmingPool(listingInfo.getSwimmingPool());
             newListing.setGym(listingInfo.getGym());
@@ -272,6 +279,32 @@ public class ListingServiceImpl implements ListingService {
         return response;
 
     }
+
+    @Override
+    public ReqRes uploadImages(List<MultipartFile> images,Long itemId) throws IOException {
+        ReqRes response =new ReqRes();
+        Optional<Listing> existingListing =repository.findById(itemId);
+        if(existingListing.isEmpty()){
+            response.setMessage("Listing not found");
+            response.setStatusCode(404);
+            return response;
+        }
+        try{
+            List<byte[]> existingImages = existingListing.get().getImages();
+            for(MultipartFile file:images){
+
+                existingImages.add(file.getBytes());
+            }
+            existingListing.get().setImages(existingImages);
+            repository.save(existingListing.get());
+            response.setMessage("Images added");
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+
+        return response;
+    }
+
     @Override
     public ReqRes deleteListing(Long id,Long userId) {
         ReqRes response =new ReqRes();

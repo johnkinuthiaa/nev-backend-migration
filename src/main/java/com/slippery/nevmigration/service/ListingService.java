@@ -2,6 +2,10 @@ package com.slippery.nevmigration.service;
 
 import com.slippery.nevmigration.dto.ReqRes;
 import com.slippery.nevmigration.model.Listing;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 public interface ListingService {
     ReqRes getAllListings();
@@ -25,6 +29,7 @@ public interface ListingService {
     ReqRes updateListing(Listing listingInfo, Long userId, Long listingId);
 
     ReqRes createListing(ReqRes listingInfo, Long id);
+    ReqRes uploadImages(List<MultipartFile> images,Long itemId) throws IOException;
 //    Listing createListing(Listing listingInfo, Long id);
 
     ReqRes deleteListing(Long id,Long userId);

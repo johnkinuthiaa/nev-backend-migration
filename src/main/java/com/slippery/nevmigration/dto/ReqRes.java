@@ -5,9 +5,11 @@ package com.slippery.nevmigration.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.slippery.nevmigration.model.Listing;
+import jakarta.persistence.ElementCollection;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -33,6 +35,9 @@ public class ReqRes {
     private String swimmingPool;
     private String gym;
     private String location;
+    private List<byte[]> imageBytes =new ArrayList<>();
+    private String imageName;
+    private String imageContent;
     private List<Listing> listings;
     private Listing listing;
 }

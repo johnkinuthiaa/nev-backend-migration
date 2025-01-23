@@ -36,6 +36,8 @@ public class Listing {
     private String type;
     private Boolean hasOffer;
     private String imgUrl;
+    @Lob
+    private List<byte[]> images =new ArrayList<>();
     private String swimmingPool;
     private String gym;
     private LocalDateTime createdAt;
