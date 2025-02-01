@@ -46,7 +46,16 @@ public class ListingServiceImpl implements ListingService {
     @Override
     public ReqRes getListingByLocation(String location) {
         ReqRes response = new ReqRes();
-        var listingsInLocation =repository.findAllByLocationContainingIgnoreCase(location);
+        if(location == null || location.isBlank() ||location.chars().count() ==0){
+            response.setStatusCode(401);
+            response.setMessage("location cannot be empty");
+            return response;
+        }
+//        var listingsInLocation =repository.findAllByLocationContainingIgnoreCase(location);
+        var listingsInLocation =repository.findAll().stream()
+                .filter(listing -> listing.getLocation().toLowerCase().contains(location.toLowerCase()))
+                .toList();
+
 
         if (listingsInLocation.isEmpty()) {
             response.setStatusCode(404);
