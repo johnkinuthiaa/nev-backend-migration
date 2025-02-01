@@ -52,20 +52,26 @@ public class ListingServiceImpl implements ListingService {
             return response;
         }
 //        var listingsInLocation =repository.findAllByLocationContainingIgnoreCase(location);
-        var listingsInLocation =repository.findAll().stream()
-                .filter(listing -> listing.getLocation().toLowerCase().contains(location.toLowerCase()))
-                .toList();
-
-
-        if (listingsInLocation.isEmpty()) {
+        try{
+            var listingsInLocation =repository.findAll().stream()
+                    .filter(listing -> listing.getLocation().toLowerCase().contains(location.toLowerCase()))
+                    .toList();
+            if (listingsInLocation.isEmpty()) {
+                response.setStatusCode(404);
+                response.setMessage("no listings were found in that location");
+            } else {
+                response.setMessage("all listings found in " + location);
+                response.setStatusCode(200);
+                response.setListings(listingsInLocation);
+                response.setName("all listings");
+            }
+        } catch (Exception e) {
+            response.setMessage("listing not found");
             response.setStatusCode(404);
-            response.setMessage("no listings were found in that location");
-        } else {
-            response.setMessage("all listings found in " + location);
-            response.setStatusCode(200);
-            response.setListings(listingsInLocation);
-            response.setName("all listings");
         }
+
+
+
         return response;
     }
     @Override
