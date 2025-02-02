@@ -81,6 +81,10 @@ public class ListingController {
     public ResponseEntity<ReqRes> deleteAllListings(@RequestParam Long id){
         return new ResponseEntity<>(service.deleteAllListings(id),HttpStatus.ACCEPTED);
     }
+    @GetMapping("/adv")
+    public ResponseEntity<ReqRes> advancedSearch(@RequestBody ReqRes searchParams){
+        return ResponseEntity.ok(service.advancedSearch(searchParams));
+    }
 
 
 }

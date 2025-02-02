@@ -12,11 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Service
@@ -46,12 +44,11 @@ public class ListingServiceImpl implements ListingService {
     @Override
     public ReqRes getListingByLocation(String location) {
         ReqRes response = new ReqRes();
-        if(location == null || location.isBlank() ||location.chars().count() ==0){
+        if(location == null || location.isBlank()){
             response.setStatusCode(401);
             response.setMessage("location cannot be empty");
             return response;
         }
-//        var listingsInLocation =repository.findAllByLocationContainingIgnoreCase(location);
         try{
             var listingsInLocation =repository.findAll().stream()
                     .filter(listing -> listing.getLocation().toLowerCase().contains(location.toLowerCase()))
@@ -66,7 +63,7 @@ public class ListingServiceImpl implements ListingService {
                 response.setName("all listings");
             }
         } catch (Exception e) {
-            response.setMessage("listing not found");
+            response.setMessage(e.getMessage());
             response.setStatusCode(404);
         }
 
@@ -294,6 +291,27 @@ public class ListingServiceImpl implements ListingService {
 
     }
 
+    @Override
+    public ReqRes advancedSearch(ReqRes searchParams) {
+        ReqRes response =new ReqRes();
+        try{
+            var advancedListing =repository.findAll().stream()
+                    .filter(listing ->
+                            listing.getIsFurnished().equals(searchParams.getIsFurnished())
+                            &&listing.getHasParking().equals(searchParams.getHasParking())
+                            && Objects.equals(listing.getBathrooms(), searchParams.getBathrooms())
+                            && Objects.equals(listing.getBedrooms(), searchParams.getBedrooms())
+                            &&(listing.getRegularPrice()-searchParams.getRegularPrice() >0
+                                    &&listing.getRegularPrice()-searchParams.getRegularPrice() < 9999)
+                    )
+                    .toList();
+            response.setListings(advancedListing);
+        } catch (Exception e) {
+            response.setMessage(e.getMessage());
+            response.setStatusCode(500);
+        }
+        return response;
+    }
 
 
     @Override

@@ -20,18 +20,31 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Cacheable
 public class Listing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Lob
     private String description;
     private String address;
+    private String postalCode;
+    private String neighbourHoodName;
+    private Long squareFootage;
+    private Long sizeOfLand;
+    private int yearBuilt;
+    @ElementCollection
+    private List<String> appliancesIncluded;
+    private String flooringType;
+    private String status;
     private String location;
     private Double regularPrice;
     private Double discount;
     private Long bathrooms;
     private Long bedrooms;
+    private String rooms;
+    private String kitchen;
     private Boolean isFurnished;
     private Boolean hasParking;
     private String type;
@@ -41,6 +54,12 @@ public class Listing {
     private String swimmingPool;
     private String gym;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedDate;
+    @ElementCollection
+    private List<String> nearBySchools;
+    private String electricityType;
+    @Lob
+    private String petPolicy;
     @ManyToOne
     @JsonBackReference
     private User user;
