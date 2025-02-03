@@ -50,9 +50,8 @@ public class Listing {
     private String type;
     private Boolean hasOffer;
     private String imgUrl;
-
-    private boolean swimmingPool;
-    private boolean gym;
+    private Boolean swimmingPool;
+    private Boolean gym;
     private LocalDateTime createdAt;
     private LocalDateTime updatedDate;
     @ElementCollection
