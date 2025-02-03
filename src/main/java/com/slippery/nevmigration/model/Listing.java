@@ -43,16 +43,16 @@ public class Listing {
     private Double discount;
     private Long bathrooms;
     private Long bedrooms;
-    private String rooms;
-    private String kitchen;
+    private Long rooms;
+    private Long kitchen;
     private Boolean isFurnished;
     private Boolean hasParking;
     private String type;
     private Boolean hasOffer;
     private String imgUrl;
 
-    private String swimmingPool;
-    private String gym;
+    private boolean swimmingPool;
+    private boolean gym;
     private LocalDateTime createdAt;
     private LocalDateTime updatedDate;
     @ElementCollection

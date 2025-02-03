@@ -224,7 +224,24 @@ public class ListingServiceImpl implements ListingService {
         existingListing.get().setLocation(listingInfo.getLocation() ==null||listingInfo.getLocation().isBlank()?existingListing.get().getLocation(): listingInfo.getLocation());
         existingListing.get().setName(listingInfo.getName()==null||listingInfo.getName().isBlank()?existingListing.get().getName(): listingInfo.getName());
         existingListing.get().setRegularPrice(listingInfo.getRegularPrice() ==null ||listingInfo.getRegularPrice().toString().isBlank()?existingListing.get().getRegularPrice(): listingInfo.getRegularPrice());
+
+//        new shii to update
+        existingListing.get().setRooms(listingInfo.getRooms() ==null?existingListing.get().getRooms(): listingInfo.getRooms());
+        existingListing.get().setSquareFootage(listingInfo.getSquareFootage() ==null?existingListing.get().getSquareFootage(): listingInfo.getSquareFootage());
+        existingListing.get().setKitchen(listingInfo.getKitchen() ==null?existingListing.get().getKitchen(): listingInfo.getKitchen());
+        existingListing.get().setStatus(listingInfo.getStatus() ==null||listingInfo.getStatus().isBlank()?existingListing.get().getStatus(): listingInfo.getStatus());
+
+        existingListing.get().setPetPolicy(listingInfo.getPetPolicy() ==null||listingInfo.getPetPolicy().isBlank()?existingListing.get().getPetPolicy(): listingInfo.getPetPolicy());
+        existingListing.get().setPostalCode(listingInfo.getPostalCode() ==null||listingInfo.getPostalCode().isBlank()?existingListing.get().getPostalCode(): listingInfo.getPostalCode());
         existingListing.get().setType(listingInfo.getType() ==null||listingInfo.getType().isBlank()?existingListing.get().getType(): listingInfo.getType());
+        existingListing.get().setUpdatedDate(LocalDateTime.now());
+        existingListing.get().setYearBuilt(listingInfo.getYearBuilt()<=0?existingListing.get().getYearBuilt(): listingInfo.getYearBuilt());
+        existingListing.get().setSizeOfLand(listingInfo.getSizeOfLand() ==null||listingInfo.getSizeOfLand()<=0?existingListing.get().getSizeOfLand(): listingInfo.getSizeOfLand());
+        existingListing.get().setFlooringType(listingInfo.getFlooringType() ==null||listingInfo.getFlooringType().isBlank()?existingListing.get().getFlooringType(): listingInfo.getFlooringType());
+        existingListing.get().setElectricityType(listingInfo.getElectricityType() ==null||listingInfo.getElectricityType().isBlank()?existingListing.get().getElectricityType(): listingInfo.getElectricityType());
+        existingListing.get().setNeighbourHoodName(listingInfo.getNeighbourHoodName() ==null||listingInfo.getNeighbourHoodName().isBlank()?existingListing.get().getNeighbourHoodName(): listingInfo.getNeighbourHoodName());
+        existingListing.get().setNearBySchools(listingInfo.getNearBySchools() ==null||listingInfo.getNearBySchools().isEmpty()?existingListing.get().getNearBySchools(): listingInfo.getNearBySchools());
+        existingListing.get().setAppliancesIncluded(listingInfo.getAppliancesIncluded() ==null||listingInfo.getAppliancesIncluded().isEmpty()?existingListing.get().getAppliancesIncluded(): listingInfo.getAppliancesIncluded());
 
         repository.save(existingListing.get());
         response.setMessage("Listing updated");
@@ -271,6 +288,20 @@ public class ListingServiceImpl implements ListingService {
             newListing.setGym(listingInfo.getGym());
             newListing.setUser(userTemp.get());
             newListing.setCreatedAt(LocalDateTime.now());
+            newListing.setAppliancesIncluded(listingInfo.getAppliancesIncluded());
+            newListing.setElectricityType(listingInfo.getElectricityType());
+            newListing.setFlooringType(listingInfo.getFlooringType());
+            newListing.setKitchen(listingInfo.getKitchen());
+            newListing.setNearBySchools(listingInfo.getNearBySchools());
+            newListing.setNeighbourHoodName(listingInfo.getNeighbourHoodName());
+            newListing.setPetPolicy(listingInfo.getPetPolicy());
+            newListing.setPostalCode(listingInfo.getPostalCode());
+            newListing.setRooms(listingInfo.getRooms());
+            newListing.setSizeOfLand(listingInfo.getSizeOfLand());
+            newListing.setStatus(listingInfo.getStatus());
+            newListing.setSquareFootage(listingInfo.getSquareFootage());
+            newListing.setYearBuilt(listingInfo.getYearBuilt());
+            newListing.setUpdatedDate(null);
             repository.save(newListing);
 //            user listing
 
@@ -281,7 +312,6 @@ public class ListingServiceImpl implements ListingService {
             response.setStatusCode(201);
             response.setMessage("new listing created");
             response.setListing(newListing);
-
 
         } catch (Exception e) {
             response.setStatusCode(500);
