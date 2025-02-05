@@ -25,6 +25,7 @@ public class User {
     private String password;
     @Column(nullable = false)
     private String role;
+    private Boolean isAuthenticated =false;
     @Column(nullable = false)
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user",orphanRemoval = true)
     private List<Listing> listings =new ArrayList<>();

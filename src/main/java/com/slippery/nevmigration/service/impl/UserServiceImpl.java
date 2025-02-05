@@ -62,7 +62,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto login(User loginDetails) {
         UserDto response =new UserDto();
-        User existingUserByUsername =repository.findByUsername(loginDetails.getUsername().trim());
+        var findUserUsingEmail =repository.findAll().stream()
+                .filter(user -> user.getUserEmail().equals(loginDetails.getUserEmail()))
+                .toList();
+        if(findUserUsingEmail.isEmpty()){
+            response.setMessage("User with the email was not found! ");
+            response.setStatusCode(404);
+            return response;
+        }
+        User existingUserByUsername =repository.findByUsername(findUserUsingEmail.get(0).getUsername());
 
         if(existingUserByUsername ==null){
             response.setMessage("User with username "+loginDetails.getUsername()+" does not exist!");
@@ -71,10 +79,12 @@ public class UserServiceImpl implements UserService {
         }
 
         Authentication authentication =authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDetails.getUsername(),loginDetails.getPassword())
+                new UsernamePasswordAuthenticationToken(findUserUsingEmail.get(0).getUsername(),loginDetails.getPassword())
         );
         if(authentication.isAuthenticated()){
-            var token =jwtService.generateJwtToken(loginDetails.getUsername());
+            var token =jwtService.generateJwtToken(findUserUsingEmail.get(0).getUsername());
+            existingUserByUsername.setIsAuthenticated(true);
+            repository.save(existingUserByUsername);
             response.setJwtToken(token);
             response.setMessage("User logged in successfully");
             response.setStatusCode(200);

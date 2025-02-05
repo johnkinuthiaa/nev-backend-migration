@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/reviews")
+@CrossOrigin
 public class ReviewController {
     private final ReviewService service;
 

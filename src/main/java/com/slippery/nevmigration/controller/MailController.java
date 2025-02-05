@@ -3,14 +3,12 @@ package com.slippery.nevmigration.controller;
 import com.slippery.nevmigration.dto.MailDto;
 import com.slippery.nevmigration.service.mails.ContactUsEmail;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/mail")
 public class MailController {
     private final ContactUsEmail contactUsEmail;
