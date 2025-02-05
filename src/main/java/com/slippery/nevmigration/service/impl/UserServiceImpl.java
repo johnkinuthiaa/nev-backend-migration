@@ -77,7 +77,6 @@ public class UserServiceImpl implements UserService {
             response.setStatusCode(400);
             return response;
         }
-
         Authentication authentication =authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(findUserUsingEmail.get(0).getUsername(),loginDetails.getPassword())
         );
