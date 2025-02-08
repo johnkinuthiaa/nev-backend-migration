@@ -2,7 +2,7 @@ package com.slippery.nevmigration.service.impl;
 
 import com.slippery.nevmigration.dto.ReqRes;
 import com.slippery.nevmigration.model.Listing;
-import com.slippery.nevmigration.model.User;
+import com.slippery.nevmigration.model.Users;
 import com.slippery.nevmigration.repository.ListingRepository;
 import com.slippery.nevmigration.repository.UserRepository;
 import com.slippery.nevmigration.service.ListingService;
@@ -193,7 +193,7 @@ public class ListingServiceImpl implements ListingService {
     @Override
     public ReqRes updateListing(Listing listingInfo, Long userId, Long listingId) {
         ReqRes response =new ReqRes();
-        Optional<User> userTemp = userRepository.findById(userId);
+        Optional<Users> userTemp = userRepository.findById(userId);
         Optional<Listing> existingListing =repository.findById(listingId);
 
         if(userTemp.isEmpty()){
@@ -206,7 +206,7 @@ public class ListingServiceImpl implements ListingService {
             response.setStatusCode(404);
             return response;
         }
-        if(!existingListing.get().getUser().getId().equals(userId)){
+        if(!existingListing.get().getUsers().getId().equals(userId)){
             response.setMessage("User doesnt have a listing with id "+listingId);
             response.setStatusCode(400);
             return response;
@@ -255,7 +255,7 @@ public class ListingServiceImpl implements ListingService {
     public ReqRes createListing(ReqRes listingInfo, Long id) {
         ReqRes response =new ReqRes();
         try {
-            Optional<User> userTemp = userRepository.findById(id);
+            Optional<Users> userTemp = userRepository.findById(id);
             Optional<Listing> listing=repository.findByNameEqualsIgnoreCase(listingInfo.getName().trim());
 
             if(userTemp.isEmpty()){
@@ -286,7 +286,7 @@ public class ListingServiceImpl implements ListingService {
             newListing.setLocation(listingInfo.getLocation());
             newListing.setSwimmingPool(listingInfo.getSwimmingPool());
             newListing.setGym(listingInfo.getGym());
-            newListing.setUser(userTemp.get());
+            newListing.setUsers(userTemp.get());
             newListing.setCreatedAt(LocalDateTime.now());
             newListing.setAppliancesIncluded(listingInfo.getAppliancesIncluded());
             newListing.setElectricityType(listingInfo.getElectricityType());
@@ -348,7 +348,7 @@ public class ListingServiceImpl implements ListingService {
     public ReqRes deleteListing(Long id,Long userId) {
         ReqRes response =new ReqRes();
         Optional<Listing> listing =repository.findById(id);
-        Optional<User> user =userRepository.findById(userId);
+        Optional<Users> user =userRepository.findById(userId);
         if(listing.isEmpty()){
             response.setMessage("Listing is not available");
             response.setStatusCode(404);
@@ -359,7 +359,7 @@ public class ListingServiceImpl implements ListingService {
             response.setStatusCode(404);
             return response;
         }
-        if(!listing.get().getUser().getId().equals(userId)){
+        if(!listing.get().getUsers().getId().equals(userId)){
             response.setMessage("Listing does not belong to user");
             response.setStatusCode(401);
             return response;
@@ -373,7 +373,7 @@ public class ListingServiceImpl implements ListingService {
     @Override
     public ReqRes deleteAllListings(Long id) {
         ReqRes response =new ReqRes();
-        User userTemp = userRepository.findById(id).orElse(null);
+        Users userTemp = userRepository.findById(id).orElse(null);
         if(userTemp !=null){
             repository.deleteAll();
             response.setStatusCode(200);

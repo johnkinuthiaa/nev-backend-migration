@@ -24,12 +24,12 @@ public class Reviews {
     private String review;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "users_id")
+    private Users users;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "listing_id")
+    @JoinColumn(name = "listings_id")
 
     private Listing listing;
     private LocalDateTime createdOn =LocalDateTime.now();

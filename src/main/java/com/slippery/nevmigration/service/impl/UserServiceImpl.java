@@ -2,7 +2,8 @@ package com.slippery.nevmigration.service.impl;
 
 
 import com.slippery.nevmigration.dto.UserDto;
-import com.slippery.nevmigration.model.User;
+
+import com.slippery.nevmigration.model.Users;
 import com.slippery.nevmigration.repository.UserRepository;
 import com.slippery.nevmigration.service.JwtService;
 import com.slippery.nevmigration.service.UserService;
@@ -33,9 +34,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDto registerUser(User registrationDetails) {
+    public UserDto registerUser(Users registrationDetails) {
         UserDto response =new UserDto();
-        User existingUserByUsername =repository.findByUsername(registrationDetails.getUsername().trim());
+        Users existingUserByUsername =repository.findByUsername(registrationDetails.getUsername().trim());
 
         if(existingUserByUsername !=null){
             response.setMessage("User with username "+registrationDetails.getUsername()+" already exists! ");
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("email matches regex");
         }
 
-        User user =new User();
+        Users user =new Users();
         user.setPassword(passwordEncoder.encode(registrationDetails.getPassword()));
         user.setUsername(registrationDetails.getUsername());
         user.setListings(new ArrayList<>());
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto login(User loginDetails) {
+    public UserDto login(Users loginDetails) {
         UserDto response =new UserDto();
         var findUserUsingEmail =repository.findAll().stream()
                 .filter(user -> user.getUserEmail().equals(loginDetails.getUserEmail()))
@@ -70,7 +71,7 @@ public class UserServiceImpl implements UserService {
             response.setStatusCode(404);
             return response;
         }
-        User existingUserByUsername =repository.findByUsername(findUserUsingEmail.get(0).getUsername());
+        Users existingUserByUsername =repository.findByUsername(findUserUsingEmail.get(0).getUsername());
 
         if(existingUserByUsername ==null){
             response.setMessage("User with username "+loginDetails.getUsername()+" does not exist!");
@@ -97,7 +98,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(Long userId) {
         UserDto response =new UserDto();
-        Optional<User> existingUser =repository.findById(userId);
+        Optional<Users> existingUser =repository.findById(userId);
         if(existingUser.isEmpty()){
             response.setMessage("User doesnt exist");
             response.setStatusCode(200);
@@ -109,9 +110,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(User details,Long id) {
+    public UserDto updateUser(Users details,Long id) {
         UserDto response =new UserDto();
-        Optional<User> existingUser =repository.findById(id);
+        Optional<Users> existingUser =repository.findById(id);
         if(existingUser.isEmpty()){
             response.setMessage("User does not exist");
             response.setStatusCode(404);
@@ -133,7 +134,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto deleteUserById(Long id) {
         UserDto response =new UserDto();
-        Optional<User> existingUser =repository.findById(id);
+        Optional<Users> existingUser =repository.findById(id);
         if(existingUser.isEmpty()){
             response.setMessage("User was not found");
             response.setStatusCode(404);

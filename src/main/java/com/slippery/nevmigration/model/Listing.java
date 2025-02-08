@@ -2,15 +2,12 @@ package com.slippery.nevmigration.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.processing.Generated;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +31,7 @@ public class Listing {
     private Long squareFootage;
     private Long sizeOfLand;
     private int yearBuilt;
-    @ElementCollection
+    @Lob
     private List<String> appliancesIncluded;
     private String flooringType;
     private String status;
@@ -54,14 +51,14 @@ public class Listing {
     private Boolean gym;
     private LocalDateTime createdAt;
     private LocalDateTime updatedDate;
-    @ElementCollection
+    @Lob
     private List<String> nearBySchools;
     private String electricityType;
     @Lob
     private String petPolicy;
     @ManyToOne
     @JsonBackReference
-    private User user;
+    private Users users;
     @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
     private List<Reviews> reviewsList =new ArrayList<>();
 

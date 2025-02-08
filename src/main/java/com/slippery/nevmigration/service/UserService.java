@@ -1,13 +1,13 @@
 package com.slippery.nevmigration.service;
 
 import com.slippery.nevmigration.dto.UserDto;
-import com.slippery.nevmigration.model.User;
+import com.slippery.nevmigration.model.Users;
 
 public interface UserService {
-    UserDto registerUser(User registrationDetails);
-    UserDto login(User loginDetails);
+    UserDto registerUser(Users registrationDetails);
+    UserDto login(Users loginDetails);
     UserDto getUserById(Long userId);
-    UserDto updateUser(User registrationDetails,Long id);
+    UserDto updateUser(Users registrationDetails,Long id);
     UserDto deleteUserById(Long id);
     UserDto deleteAllUsers();
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,9 +27,9 @@ public class User {
     private String role;
     private Boolean isAuthenticated =false;
     @Column(nullable = false)
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user",orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "users",orphanRemoval = true)
     private List<Listing> listings =new ArrayList<>();
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Reviews> reviewsList =new ArrayList<>();
 
 }

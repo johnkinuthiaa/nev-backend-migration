@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import com.slippery.nevmigration.model.Listing;
-import com.slippery.nevmigration.model.User;
+import com.slippery.nevmigration.model.Users;
 import lombok.Data;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class UserDto {
     private String userEmail;
     private String password;
     private String jwtToken;
-    private List<User> users;
-    private User user;
+    private List<Users> users;
+    private Users user;
     private List<Listing> listings;
 }

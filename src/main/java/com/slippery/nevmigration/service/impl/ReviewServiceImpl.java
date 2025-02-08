@@ -3,7 +3,7 @@ package com.slippery.nevmigration.service.impl;
 import com.slippery.nevmigration.dto.ReviewDto;
 import com.slippery.nevmigration.model.Listing;
 import com.slippery.nevmigration.model.Reviews;
-import com.slippery.nevmigration.model.User;
+import com.slippery.nevmigration.model.Users;
 import com.slippery.nevmigration.repository.ListingRepository;
 import com.slippery.nevmigration.repository.ReviewRepository;
 import com.slippery.nevmigration.repository.UserRepository;
@@ -27,7 +27,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ReviewDto createNewReview(Long userId, Long listingId,Reviews review) {
         ReviewDto response =new ReviewDto();
-        Optional<User> existingUser =userRepository.findById(userId);
+        Optional<Users> existingUser =userRepository.findById(userId);
         Optional<Listing> existingListing =listingRepository.findById(listingId);
         if(existingListing.isEmpty()){
             response.setMessage("listing was not found");
@@ -47,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
 //        save review
         Reviews reviews =new Reviews();
         reviews.setReview(review.getReview());
-        reviews.setUser(existingUser.get());
+        reviews.setUsers(existingUser.get());
         reviews.setListing(existingListing.get());
         reviewRepository.save(reviews);
 //        update listing
@@ -93,7 +93,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ReviewDto deleteReview(Long reviewId, Long userId, Long listingId) {
         ReviewDto response =new ReviewDto();
-        Optional<User> existingUser =userRepository.findById(userId);
+        Optional<Users> existingUser =userRepository.findById(userId);
         Optional<Listing> existingListing =listingRepository.findById(listingId);
         Optional<Reviews> existingReview =reviewRepository.findById(reviewId);
 
@@ -112,7 +112,7 @@ public class ReviewServiceImpl implements ReviewService {
             response.setStatusCode(404);
             return response;
         }
-        if(!existingReview.get().getUser().getId().equals(userId) || !existingReview.get().getListing().getId().equals(listingId)){
+        if(!existingReview.get().getUsers().getId().equals(userId) || !existingReview.get().getListing().getId().equals(listingId)){
             response.setMessage("review does not belong to the user");
             response.setStatusCode(401);
             return response;

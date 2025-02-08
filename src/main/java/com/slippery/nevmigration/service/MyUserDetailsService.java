@@ -1,8 +1,7 @@
 package com.slippery.nevmigration.service;
 
-
-import com.slippery.nevmigration.model.User;
 import com.slippery.nevmigration.model.UserPrincipal;
+import com.slippery.nevmigration.model.Users;
 import com.slippery.nevmigration.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +16,7 @@ public class MyUserDetailsService implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user =repository.findByUsername(username);
+        Users user =repository.findByUsername(username);
         if(user ==null){
             System.out.println("user not found");
             throw new UsernameNotFoundException("user not found");
