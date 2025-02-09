@@ -3,34 +3,27 @@ package com.slippery.nevmigration.service.impl;
 import com.slippery.nevmigration.dto.ReqRes;
 import com.slippery.nevmigration.model.Listing;
 import com.slippery.nevmigration.model.Users;
-import com.slippery.nevmigration.repository.ApplianceRepository;
 import com.slippery.nevmigration.repository.ListingRepository;
-import com.slippery.nevmigration.repository.NearBySchoolsRepository;
 import com.slippery.nevmigration.repository.UserRepository;
 import com.slippery.nevmigration.service.ListingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Slf4j
 @Service
 public class ListingServiceImpl implements ListingService {
     private final ListingRepository repository;
     private final UserRepository userRepository;
-    private final NearBySchoolsRepository nearBySchoolsRepository;
-    private final ApplianceRepository applianceRepository;
 
-    public ListingServiceImpl(ListingRepository repository, UserRepository userRepository, NearBySchoolsRepository nearBySchoolsRepository, ApplianceRepository applianceRepository){
+
+    public ListingServiceImpl(ListingRepository repository, UserRepository userRepository){
         this.repository=repository;
         this.userRepository=userRepository;
-        this.nearBySchoolsRepository = nearBySchoolsRepository;
-        this.applianceRepository = applianceRepository;
+
     }
 
     @Override
@@ -247,8 +240,6 @@ public class ListingServiceImpl implements ListingService {
         existingListing.get().setFlooringType(listingInfo.getFlooringType() ==null||listingInfo.getFlooringType().isBlank()?existingListing.get().getFlooringType(): listingInfo.getFlooringType());
         existingListing.get().setElectricityType(listingInfo.getElectricityType() ==null||listingInfo.getElectricityType().isBlank()?existingListing.get().getElectricityType(): listingInfo.getElectricityType());
         existingListing.get().setNeighbourHoodName(listingInfo.getNeighbourHoodName() ==null||listingInfo.getNeighbourHoodName().isBlank()?existingListing.get().getNeighbourHoodName(): listingInfo.getNeighbourHoodName());
-        existingListing.get().setNearBySchools(listingInfo.getNearBySchools() ==null||listingInfo.getNearBySchools().isEmpty()?existingListing.get().getNearBySchools(): listingInfo.getNearBySchools());
-        existingListing.get().setAppliancesIncluded(listingInfo.getAppliancesIncluded() ==null||listingInfo.getAppliancesIncluded().isEmpty()?existingListing.get().getAppliancesIncluded(): listingInfo.getAppliancesIncluded());
 
         repository.save(existingListing.get());
         response.setMessage("Listing updated");
@@ -295,11 +286,11 @@ public class ListingServiceImpl implements ListingService {
             newListing.setGym(listingInfo.getGym());
             newListing.setUsers(userTemp.get());
             newListing.setCreatedAt(LocalDateTime.now());
-            newListing.setAppliancesIncluded(listingInfo.getAppliancesIncluded());
+
             newListing.setElectricityType(listingInfo.getElectricityType());
             newListing.setFlooringType(listingInfo.getFlooringType());
             newListing.setKitchen(listingInfo.getKitchen());
-            newListing.setNearBySchools(listingInfo.getNearBySchools());
+
             newListing.setNeighbourHoodName(listingInfo.getNeighbourHoodName());
             newListing.setPetPolicy(listingInfo.getPetPolicy());
             newListing.setPostalCode(listingInfo.getPostalCode());
