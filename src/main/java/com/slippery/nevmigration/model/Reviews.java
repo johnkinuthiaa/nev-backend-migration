@@ -24,13 +24,11 @@ public class Reviews {
     private String review;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "users_id")
+    @JoinColumn
     private Users users;
-
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "listings_id")
-
+    @JoinColumn
     private Listing listing;
     private LocalDateTime createdOn =LocalDateTime.now();
 }

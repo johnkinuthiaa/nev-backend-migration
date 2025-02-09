@@ -31,8 +31,6 @@ public class Listing {
     private Long squareFootage;
     private Long sizeOfLand;
     private int yearBuilt;
-    @Lob
-    private List<String> appliancesIncluded;
     private String flooringType;
     private String status;
     private String location;
@@ -51,8 +49,6 @@ public class Listing {
     private Boolean gym;
     private LocalDateTime createdAt;
     private LocalDateTime updatedDate;
-    @Lob
-    private List<String> nearBySchools;
     private String electricityType;
     @Lob
     private String petPolicy;

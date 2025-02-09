@@ -4,7 +4,9 @@ package com.slippery.nevmigration.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.slippery.nevmigration.model.AppliancesIncluded;
 import com.slippery.nevmigration.model.Listing;
+import com.slippery.nevmigration.model.NearBySchools;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Lob;
 import lombok.Data;
@@ -42,12 +44,12 @@ public class ReqRes {
     private Long squareFootage;
     private Long sizeOfLand;
     private int yearBuilt;
-    private List<String> appliancesIncluded;
+    private List<AppliancesIncluded> appliancesIncluded;
     private String flooringType;
     private String status;
     private long kitchen;
     private LocalDateTime updatedDate;
-    private List<String> nearBySchools;
+    private List<NearBySchools> nearBySchools;
     private String electricityType;
     private String petPolicy;
     private List<byte[]> imageBytes =new ArrayList<>();

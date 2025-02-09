@@ -27,9 +27,9 @@ public class Users {
     private String role;
     private Boolean isAuthenticated =false;
     @Column(nullable = false)
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "users",orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Listing> listings =new ArrayList<>();
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Reviews> reviewsList =new ArrayList<>();
 
 }

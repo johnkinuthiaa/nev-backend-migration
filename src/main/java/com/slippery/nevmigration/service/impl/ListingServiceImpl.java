@@ -3,7 +3,9 @@ package com.slippery.nevmigration.service.impl;
 import com.slippery.nevmigration.dto.ReqRes;
 import com.slippery.nevmigration.model.Listing;
 import com.slippery.nevmigration.model.Users;
+import com.slippery.nevmigration.repository.ApplianceRepository;
 import com.slippery.nevmigration.repository.ListingRepository;
+import com.slippery.nevmigration.repository.NearBySchoolsRepository;
 import com.slippery.nevmigration.repository.UserRepository;
 import com.slippery.nevmigration.service.ListingService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +23,14 @@ import java.util.stream.IntStream;
 public class ListingServiceImpl implements ListingService {
     private final ListingRepository repository;
     private final UserRepository userRepository;
-    public ListingServiceImpl(ListingRepository repository,UserRepository userRepository){
+    private final NearBySchoolsRepository nearBySchoolsRepository;
+    private final ApplianceRepository applianceRepository;
+
+    public ListingServiceImpl(ListingRepository repository, UserRepository userRepository, NearBySchoolsRepository nearBySchoolsRepository, ApplianceRepository applianceRepository){
         this.repository=repository;
         this.userRepository=userRepository;
+        this.nearBySchoolsRepository = nearBySchoolsRepository;
+        this.applianceRepository = applianceRepository;
     }
 
     @Override
