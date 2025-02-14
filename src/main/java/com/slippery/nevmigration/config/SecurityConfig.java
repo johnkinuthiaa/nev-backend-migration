@@ -30,7 +30,6 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests ->requests
                         .anyRequest().permitAll())
-                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //                .oauth2Login(Customizer.withDefaults())
 //                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

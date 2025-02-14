@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("https://nev-housing.vercel.app/")
 @RequestMapping("/mail")
 public class MailController {
     private final ContactUsEmail contactUsEmail;

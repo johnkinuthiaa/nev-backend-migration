@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/reviews")
-@CrossOrigin
+@CrossOrigin("https://nev-housing.vercel.app/")
 public class ReviewController {
     private final ReviewService service;
 
