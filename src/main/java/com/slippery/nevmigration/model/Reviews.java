@@ -22,13 +22,13 @@ public class Reviews {
     private Long id;
     @Lob
     private String review;
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn
-    private Users users;
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn
-    private Listing listing;
+//    @JsonIgnore
+//    @ManyToOne
+//    @JoinColumn
+//    private Users users;
+//    @JsonIgnore
+//    @ManyToOne
+//    @JoinColumn
+//    private Listing listing;
     private LocalDateTime createdOn =LocalDateTime.now();
 }

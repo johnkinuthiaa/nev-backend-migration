@@ -52,10 +52,10 @@ public class Listing {
     private String electricityType;
     @Lob
     private String petPolicy;
-    @ManyToOne
-    @JsonBackReference
-    private Users users;
-    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
-    private List<Reviews> reviewsList =new ArrayList<>();
+//    @ManyToOne
+//    @JsonBackReference
+//    private Users users;
+//    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
+//    private List<Reviews> reviewsList =new ArrayList<>();
 
 }
