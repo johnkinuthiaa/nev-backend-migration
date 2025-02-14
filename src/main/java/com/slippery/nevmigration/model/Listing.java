@@ -52,10 +52,11 @@ public class Listing {
     private String electricityType;
     @Lob
     private String petPolicy;
-//    @ManyToOne
-//    @JsonBackReference
-//    private Users users;
-//    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true)
-//    private List<Reviews> reviewsList =new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name="users_id")
+    @JsonBackReference
+    private Users users;
+    @OneToMany(cascade = CascadeType.REMOVE,orphanRemoval = true,mappedBy = "listing")
+    private List<Reviews> reviewsList =new ArrayList<>();
 
 }

@@ -32,5 +32,3 @@ build/
 ### VS Code ###
 .vscode/
 
-/mysql
-jdbc:mysql://avnadmin:AVNS_0r1vVyBlSqtdtl2st2j@mysql-1f677c0a-maloannalisse-ebe3.k.aivencloud.com:10893/Nevani?ssl-mode=REQUIRED

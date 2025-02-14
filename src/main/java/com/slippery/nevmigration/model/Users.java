@@ -26,11 +26,11 @@ public class Users {
     @Column(nullable = false)
     private String role;
     private Boolean isAuthenticated =false;
-//    @Column(nullable = false)
-//    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
-//    private List<Listing> listings =new ArrayList<>();
-//    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-//    private List<Reviews> reviewsList =new ArrayList<>();
+    @Column(nullable = false)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "users")
+    private List<Listing> listings =new ArrayList<>();
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true,mappedBy = "users")
+    private List<Reviews> reviewsList =new ArrayList<>();
 
 }
 
