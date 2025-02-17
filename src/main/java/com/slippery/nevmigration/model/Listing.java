@@ -50,6 +50,9 @@ public class Listing {
     private LocalDateTime createdAt;
     private LocalDateTime updatedDate;
     private String electricityType;
+    private byte[] imageBytes;
+    @OneToOne
+    private ImagesForListings imagesForListings;
     @Lob
     private String petPolicy;
     @ManyToOne

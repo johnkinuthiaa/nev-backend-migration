@@ -7,12 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/v1/listings")
-@CrossOrigin(value = "https://nev-housing.vercel.app/")
+//@CrossOrigin(value = "https://nev-housing.vercel.app/")
+@CrossOrigin("*")
 public class ListingController {
     private final ListingService service;
     public ListingController(ListingService service){
@@ -64,8 +66,8 @@ public class ListingController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/create/new-listing")
-    public ResponseEntity<ReqRes> createListing(@RequestBody ReqRes listingInfo,@RequestParam Long id){
-        return new ResponseEntity<>(service.createListing(listingInfo,id), HttpStatus.CREATED);
+    public ResponseEntity<ReqRes> createListing(@RequestBody ReqRes listingInfo, @RequestParam Long id, @RequestPart MultipartFile image){
+        return new ResponseEntity<>(service.createListing(listingInfo,id,image), HttpStatus.CREATED);
     }
 //    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/admin/delete/id")
@@ -81,13 +83,13 @@ public class ListingController {
     public ResponseEntity<ReqRes> advancedSearch(@RequestBody ReqRes searchParams){
         return ResponseEntity.ok(service.advancedSearch(searchParams));
     }
-    @PostMapping("/post-array")
-    public ResponseEntity<?> post(@RequestBody ArrayList<ReqRes> items) {
-        for(ReqRes item:items){
-            service.createListing(item,1L);
-        }
-        return ResponseEntity.ok("complete");
-    }
+//    @PostMapping("/post-array")
+//    public ResponseEntity<?> post(@RequestBody ArrayList<ReqRes> items) {
+//        for(ReqRes item:items){
+//            service.createListing(item,1L);
+//        }
+//        return ResponseEntity.ok("complete");
+//    }
 
 
 }
