@@ -9,6 +9,7 @@ import com.slippery.nevmigration.service.ListingService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -251,7 +252,7 @@ public class ListingServiceImpl implements ListingService {
     }
 
     @Override
-    public ReqRes createListing(ReqRes listingInfo, Long id) {
+    public ReqRes createListing(ReqRes listingInfo, Long id,MultipartFile image) {
         ReqRes response =new ReqRes();
         try {
             Optional<Users> userTemp = userRepository.findById(id);
@@ -301,6 +302,7 @@ public class ListingServiceImpl implements ListingService {
             newListing.setSquareFootage(listingInfo.getSquareFootage());
             newListing.setYearBuilt(listingInfo.getYearBuilt());
             newListing.setUpdatedDate(null);
+            newListing.setImageBytes(image.getBytes());
             repository.save(newListing);
 //            user listing
 
@@ -383,5 +385,12 @@ public class ListingServiceImpl implements ListingService {
         }
 
         return response;
+    }
+
+    @Override
+    public ReqRes addImageForListing(MultipartFile image) {
+        ReqRes response =new ReqRes();
+
+        return null;
     }
 }
