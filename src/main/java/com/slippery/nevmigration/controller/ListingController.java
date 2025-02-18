@@ -66,7 +66,7 @@ public class ListingController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/create/new-listing")
-    public ResponseEntity<ReqRes> createListing(@RequestBody ReqRes listingInfo, @RequestParam Long id, @RequestPart MultipartFile image){
+    public ResponseEntity<ReqRes> createListing(@RequestPart ReqRes listingInfo, @RequestParam Long id, @RequestPart MultipartFile image){
         return new ResponseEntity<>(service.createListing(listingInfo,id,image), HttpStatus.CREATED);
     }
 //    @PreAuthorize("hasRole('ADMIN')")
