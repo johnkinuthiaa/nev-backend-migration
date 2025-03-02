@@ -83,13 +83,13 @@ public class ListingController {
     public ResponseEntity<ReqRes> advancedSearch(@RequestBody ReqRes searchParams){
         return ResponseEntity.ok(service.advancedSearch(searchParams));
     }
-//    @PostMapping("/post-array")
-//    public ResponseEntity<?> post(@RequestBody ArrayList<ReqRes> items) {
-//        for(ReqRes item:items){
-//            service.createListing(item,1L);
-//        }
-//        return ResponseEntity.ok("complete");
-//    }
+    @PostMapping("/post-array")
+    public ResponseEntity<?> post(@RequestBody ArrayList<ReqRes> items) {
+        for(ReqRes item:items){
+            service.createListing(item,1L,null);
+        }
+        return ResponseEntity.ok("complete");
+    }
 
 
 }

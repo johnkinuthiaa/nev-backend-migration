@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService {
             existingUserByUsername.setIsAuthenticated(true);
             repository.save(existingUserByUsername);
             response.setJwtToken(token);
+            response.setUser(existingUserByUsername);
             response.setMessage("User logged in successfully");
             response.setStatusCode(200);
         }else{

@@ -50,6 +50,7 @@ public class Listing {
     private LocalDateTime createdAt;
     private LocalDateTime updatedDate;
     private String electricityType;
+    @Lob
     private byte[] imageBytes;
     @OneToOne
     private ImagesForListings imagesForListings;
